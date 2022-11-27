@@ -3,13 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
-// import * as dat from 'lil-gui'
 
-/**
- * Base
- */
-// Debug
-// const gui = new dat.GUI()
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -17,13 +11,15 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
+// Textures
+ const textureLoader = new THREE.TextureLoader()
+ const matCapTexture = textureLoader.load('/textures/matcaps/8.png')
+
 // Axes helper
 // const axesHelper = new THREE.AxesHelper()
 // scene.add(axesHelper)
 
-/**
- * Fonts
- */
+// Fonts
 const fontLoader = new FontLoader()
 fontLoader.load(
   '/fonts/helvetiker_regular.typeface.json',
@@ -41,21 +37,18 @@ fontLoader.load(
         bevelOffset: 0,
         bevelSegments: 4
       }
-      )
+    )
 
       textGeometry.center()
 
-      const textMaterial = new THREE.MeshBasicMaterial()
-      textMaterial.wireframe = true
+      const textMaterial = new THREE.MeshMatcapMaterial()
+      textMaterial.matcap = matCapTexture
+      // textMaterial.wireframe = true
       const text = new THREE.Mesh(textGeometry, textMaterial)
       scene.add(text)
-    })
+  }
+)
 
-
-/**
- * Textures
- */
-const textureLoader = new THREE.TextureLoader()
 
 /**
  * Object
