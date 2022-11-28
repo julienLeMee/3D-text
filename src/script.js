@@ -41,11 +41,35 @@ fontLoader.load(
 
       textGeometry.center()
 
-      const textMaterial = new THREE.MeshMatcapMaterial()
-      textMaterial.matcap = matCapTexture
+      const material = new THREE.MeshMatcapMaterial({ matcap: matCapTexture })
       // textMaterial.wireframe = true
-      const text = new THREE.Mesh(textGeometry, textMaterial)
+      const text = new THREE.Mesh(textGeometry, material)
       scene.add(text)
+
+      const donutGeometry = new THREE.TorusGeometry(0.3, 0.2, 20, 45)
+
+      // on créé le mesh material en dehors de la boucle pour éviter de le recréer à chaque itération et de ralentir le rendu
+
+      for(let i = 0; i < 100; i++)
+      {
+        const donut = new THREE.Mesh(donutGeometry, material)
+
+        donut.position.x = (Math.random() - 0.5) * 10
+        donut.position.y = (Math.random() - 0.5) * 10
+        donut.position.z = (Math.random() - 0.5) * 10
+
+        donut.rotation.x = Math.random() * Math.PI
+        donut.rotation.y = Math.random() * Math.PI
+
+        const scale = Math.random()
+        donut.scale.x = scale
+        donut.scale.y = scale
+        donut.scale.z = scale
+        // same as :
+        // donut.scale.set(scale, scale, scale)
+
+        scene.add(donut)
+      }
   }
 )
 
@@ -101,7 +125,8 @@ controls.enableDamping = true
  * Renderer
  */
 const renderer = new THREE.WebGLRenderer({
-    canvas: canvas
+    canvas: canvas,
+    antialias: true
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
