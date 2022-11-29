@@ -31,14 +31,15 @@ fontLoader.load(
       'Three.js',
       {
         font: font,
-        size: 0.5,
-        height: 0.2,
-        curveSegments: 5,
-        bevelEnabled: true,
-        bevelThickness: 0.03,
-        bevelSize: 0.02,
-        bevelOffset: 0,
-        bevelSegments: 4
+        size: 0.5, // taille du texte
+        height: 0.2, // épaisseur du texte
+        curveSegments: 5, // nombre de segments de courbe
+        bevelEnabled: true, // activer le bevel
+        bevelThickness: 0.03, // épaisseur du bevel
+        bevelSize: 0.02, // taille du bevel
+        bevelOffset: 0, // décalage du bevel
+        bevelSegments: 4 // nombre de segments de bevel
+        // le bevel est une sorte de bordure
       }
     )
 
